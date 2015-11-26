@@ -2,14 +2,10 @@
 
 var rotationSpeed : float = .5;
 var speed : float = 1;
-private var moving : boolean = false;
+public var moving : boolean = false;
 private var count = 0;
 
 function Start () {
-
-}
-
-function Update () {
 
 }
 
@@ -17,21 +13,21 @@ function Update () {
 function FixedUpdate () 
 {
 	
+//	if(Input.GetKey("w"))
+//	{
+//		moving = true;
+//		
+//	} else {
+//		moving = false;
+//	}
 	
-	
-	if(Input.GetKey("w"))
-	{
-		moving = true;
-		
-	} else {
-		moving = false;
-	}
-	
-	if(Input.anyKeyDown) {
-		count += 1;
-		SwitchDirection();
-		Debug.Log(count);
-	}
+//	if(Input.anyKeyDown) {
+//		count += 1;
+//		SwitchDirection();
+//		Debug.Log(count);
+//	}
+
+	Debug.Log("moving. "+moving);
 	
 	
 	if (moving == true ){
@@ -67,6 +63,14 @@ function FixedUpdate ()
 
 }
 
-function SwitchDirection () {
-	rotationSpeed = -rotationSpeed;
+
+function Move(localmoving : boolean) {
+	//--called when the button is pressed or stopped pressing 
+	moving = localmoving;
+	
+	if(localmoving == false){
+		//--switch spin direction
+		rotationSpeed = -rotationSpeed;
+	}
+
 }
