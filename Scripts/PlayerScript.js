@@ -27,21 +27,26 @@ function FixedUpdate ()
 //		Debug.Log(count);
 //	}
 
-	Debug.Log("moving. "+moving);
 	
-	
-	if (moving == true ){
+	if ((moving == true) && (transform.position.y > -0.13)){
 	
 		//-- stop it rotating
 		GetComponent.<Rigidbody>().angularVelocity = Vector3.zero;
 	
 		//-- move forward
-		GetComponent.<Rigidbody>().AddRelativeForce (Vector2.up * speed, ForceMode.Impulse);
+		
+		GetComponent.<Rigidbody>().AddRelativeForce (Vector3.forward * speed, ForceMode.Impulse);
+		//var direction : Vector3 = Vector3.forward * speed;
+		//Debug.Log("direction"+direction);
+		//GetComponent.<Rigidbody>().AddForceAtPosition(direction, transform.position);
+		transform.Translate(Vector3.forward * speed * Time.deltaTime);
+	
 		
 		//Debug.Log("speed = "+speed+" magniture = "+GetComponent.<Rigidbody>().velocity.magnitude);
 		
 		if (GetComponent.<Rigidbody>().velocity.magnitude > speed) 
 		{
+	    	Debug.Log("sfsdf");
 	    	GetComponent.<Rigidbody>().velocity = GetComponent.<Rigidbody>().velocity.normalized * speed;
 		}
 		
@@ -49,16 +54,18 @@ function FixedUpdate ()
 	
 	} else {
 		
-		GetComponent.<Rigidbody>().AddTorque (0,0,rotationSpeed, ForceMode.Impulse);
+//		GetComponent.<Rigidbody>().AddRelativeTorque (0,rotationSpeed,0, ForceMode.Impulse);
 		
-		//Debug.Log("angularVelocity = "+GetComponent.<Rigidbody>().angularVelocity.magnitude+" magniture = "+GetComponent.<Rigidbody>().angularVelocity.magnitude);
+		//Debug.Log("angularVelocity = "+GetComponent.<Rigidbody>().angularVelocity+" magniture = "+GetComponent.<Rigidbody>().angularVelocity.magnitude);
 		
 		
-		if (GetComponent.<Rigidbody>().angularVelocity.magnitude > rotationSpeed) 
-		{
-	 
-	    	GetComponent.<Rigidbody>().angularVelocity = GetComponent.<Rigidbody>().velocity.normalized * rotationSpeed;
-		}
+//		if ((GetComponent.<Rigidbody>().angularVelocity.magnitude > rotationSpeed) || (GetComponent.<Rigidbody>().angularVelocity.magnitude < rotationSpeed)) 
+//		{
+//	 		Debug.Log("over");
+//	    	GetComponent.<Rigidbody>().angularVelocity = GetComponent.<Rigidbody>().velocity.normalized * rotationSpeed;
+//		}
+
+		transform.Rotate((Vector3.up * rotationSpeed) * Time.deltaTime);
 	}
 
 }
