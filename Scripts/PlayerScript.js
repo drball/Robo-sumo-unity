@@ -4,6 +4,7 @@ var rotationSpeed : float = .5;
 var speed : float = 1;
 public var moving : boolean = false;
 private var count = 0;
+private var fallingYPos : float = -0.13;
 
 function Start () {
 
@@ -12,29 +13,13 @@ function Start () {
 
 function FixedUpdate () 
 {
-	
-//	if(Input.GetKey("w"))
-//	{
-//		moving = true;
-//		
-//	} else {
-//		moving = false;
-//	}
-	
-//	if(Input.anyKeyDown) {
-//		count += 1;
-//		SwitchDirection();
-//		Debug.Log(count);
-//	}
-
-	
-	if ((moving == true) && (transform.position.y > -0.13)){
+		
+	if ((moving == true) && (transform.position.y > fallingYPos)){
 	
 		//-- stop it rotating
 		GetComponent.<Rigidbody>().angularVelocity = Vector3.zero;
 	
 		//-- move forward
-		
 		GetComponent.<Rigidbody>().AddRelativeForce (Vector3.forward * speed, ForceMode.Impulse);
 		//var direction : Vector3 = Vector3.forward * speed;
 		//Debug.Log("direction"+direction);
@@ -44,10 +29,10 @@ function FixedUpdate ()
 		
 		//Debug.Log("speed = "+speed+" magniture = "+GetComponent.<Rigidbody>().velocity.magnitude);
 		
+		//--if gets too fast, constrain speed
 		if (GetComponent.<Rigidbody>().velocity.magnitude > speed) 
 		{
-	    	Debug.Log("sfsdf");
-	    	GetComponent.<Rigidbody>().velocity = GetComponent.<Rigidbody>().velocity.normalized * speed;
+	    	//GetComponent.<Rigidbody>().velocity = GetComponent.<Rigidbody>().velocity.normalized * speed;
 		}
 		
 		
@@ -65,6 +50,7 @@ function FixedUpdate ()
 //	    	GetComponent.<Rigidbody>().angularVelocity = GetComponent.<Rigidbody>().velocity.normalized * rotationSpeed;
 //		}
 
+		//-- rotate the player
 		transform.Rotate((Vector3.up * rotationSpeed) * Time.deltaTime);
 	}
 
@@ -73,7 +59,7 @@ function FixedUpdate ()
 
 function Move(localmoving : boolean) {
 	//--called when the button is pressed or stopped pressing 
-	moving = localmoving;
+	moving = localmoving; //--assign to public var
 	
 	if(localmoving == false){
 		//--switch spin direction
