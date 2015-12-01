@@ -1,13 +1,18 @@
 ﻿#pragma strict
 
-var rotationSpeed : float = .5;
-var speed : float = 1;
+public var rotationSpeed : float = .5;
+public var speed : float = 1;
 public var moving : boolean = false;
+public var GameController : GameControllerScript;
+public var alive = true;
+public var score : int = 0;
+
 private var count = 0;
 private var fallingYPos : float = -0.13;
 
-function Start () {
 
+function Start () {
+	GameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
 }
 
 
@@ -54,6 +59,16 @@ function FixedUpdate ()
 		transform.Rotate((Vector3.up * rotationSpeed) * Time.deltaTime);
 	}
 
+}
+
+function Update() {
+	if ((transform.position.y < fallingYPos) && (GameController.roundActive == true)){
+		alive = false;
+		
+		Debug.Log(this+" is dead");
+
+		GameController.EndRound();
+	}
 }
 
 
