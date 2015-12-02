@@ -19,7 +19,7 @@ function Start () {
 function FixedUpdate () 
 {
 		
-	if ((moving == true) && (transform.position.y > fallingYPos)){
+	if ((moving == true) && (alive == true)){
 	
 		//-- stop it rotating
 		GetComponent.<Rigidbody>().angularVelocity = Vector3.zero;
@@ -62,10 +62,15 @@ function FixedUpdate ()
 }
 
 function Update() {
-	if ((transform.position.y < fallingYPos) && (GameController.roundActive == true)){
+
+	Debug.Log("checking if alive - y pos = "+transform.position.y);
+	if ((transform.position.y < fallingYPos) && (GameController.roundActive == true) && alive == true){
+		
+		
 		alive = false;
 		
-		Debug.Log(this+" is dead");
+		Debug.Log(this+" is dead. score = "+score);
+		Debug.Log(this+" ypos = "+transform.position.y);
 
 		GameController.EndRound();
 	}
@@ -76,7 +81,7 @@ function Move(localmoving : boolean) {
 	//--called when the button is pressed or stopped pressing 
 	moving = localmoving; //--assign to public var
 	
-	if(localmoving == false){
+	if((localmoving == false) && (alive == true)){
 		//--switch spin direction
 		rotationSpeed = -rotationSpeed;
 	}

@@ -27,27 +27,42 @@ function Start () {
 	p1StartingRotation = Player1.transform.rotation;
 	p2StartingRotation = Player2.transform.rotation;
 	
+	Player2.alive = false;
+	
 }
 
 function Reset(){
 
-	//--reset position
-	Player1.transform.position = p1StartingPos;
-	Player2.transform.position = p2StartingPos;
+	Debug.Log("resetting scene -----------------------------------------");
+
+	//--reset physics
+	Player1.GetComponent.<Rigidbody>().angularVelocity = Vector3.zero;
+	Player2.GetComponent.<Rigidbody>().angularVelocity = Vector3.zero;
+	
+	Player1.GetComponent.<Rigidbody>().velocity = Vector3.zero;
+	Player2.GetComponent.<Rigidbody>().velocity = Vector3.zero;
+	
 	
 	//--reset rotation
 	Player1.transform.rotation = p1StartingRotation;
 	Player2.transform.rotation = p2StartingRotation;
 	
-	//--reset physics
-	Player1.GetComponent.<Rigidbody>().angularVelocity = Vector3.zero;
-	Player2.GetComponent.<Rigidbody>().angularVelocity = Vector3.zero;
+	Debug.Log("player 1 y = "+Player1.transform.position );
+	
+	//--reset position
+	Player1.transform.position = p1StartingPos;
+	Player2.transform.position = p2StartingPos;
+	
+	Debug.Log("changed player 1 y to = "+Player1.transform.position );
+	
 	
 	//--reset their local variables
 	Player1.alive = true;
 	Player2.alive = true;
 	
 	roundActive = true;
+	
+	Debug.Log("scene reset");
 
 }
 
@@ -69,7 +84,7 @@ function EndRound() {
 	}
 	
 	if(!Player2.alive) {
-		Player2.score++;
+		Player1.score++;
 	}
 	
 	//--update leaderboard after a few seconds
