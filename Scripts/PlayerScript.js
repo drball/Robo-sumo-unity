@@ -64,15 +64,17 @@ function FixedUpdate ()
 function Update() {
 
 	Debug.Log("checking if alive - y pos = "+transform.position.y);
-	if ((transform.position.y < fallingYPos) && (GameController.roundActive == true) && alive == true){
-		
+	if ((transform.position.y < fallingYPos) && alive == true){
 		
 		alive = false;
 		
 		Debug.Log(this+" is dead. score = "+score);
 		Debug.Log(this+" ypos = "+transform.position.y);
+		
+		if(GameController.roundActive == true){
 
-		GameController.EndRound();
+			GameController.EndRound();
+		}
 	}
 }
 

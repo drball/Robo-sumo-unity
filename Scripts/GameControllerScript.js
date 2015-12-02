@@ -27,8 +27,6 @@ function Start () {
 	p1StartingRotation = Player1.transform.rotation;
 	p2StartingRotation = Player2.transform.rotation;
 	
-	Player2.alive = false;
-	
 }
 
 function Reset(){
@@ -47,15 +45,12 @@ function Reset(){
 	Player1.transform.rotation = p1StartingRotation;
 	Player2.transform.rotation = p2StartingRotation;
 	
-	Debug.Log("player 1 y = "+Player1.transform.position );
-	
+
 	//--reset position
 	Player1.transform.position = p1StartingPos;
 	Player2.transform.position = p2StartingPos;
 	
-	Debug.Log("changed player 1 y to = "+Player1.transform.position );
-	
-	
+
 	//--reset their local variables
 	Player1.alive = true;
 	Player2.alive = true;
