@@ -8,11 +8,15 @@ public var roundActive : boolean = true;
 public var Player1ScoreText : GameObject;
 public var Player2ScoreText : GameObject;
 
+public var LInstruction : GameObject;
+public var RInstruction : GameObject;
+
 private var p1StartingPos : Vector3;
 private var p2StartingPos : Vector3;
 
 private var p1StartingRotation : Quaternion;
 private var p2StartingRotation : Quaternion;
+
 
 function Start () {
 	ScoreModal.SetActive(false);
@@ -27,7 +31,18 @@ function Start () {
 	p1StartingRotation = Player1.transform.rotation;
 	p2StartingRotation = Player2.transform.rotation;
 	
+	
+	
+	//Invoke("HideInstruction", 3);
 }
+
+
+//function HideInstruction(){
+//	Debug.Log("hide instuction");
+//	
+//	LInstruction.GetComponent.<Animator>().Play("FadeOut");
+//	
+//}
 
 function Reset(){
 
@@ -56,8 +71,6 @@ function Reset(){
 	Player2.alive = true;
 	
 	roundActive = true;
-	
-	Debug.Log("scene reset");
 
 }
 
@@ -82,6 +95,7 @@ function EndRound() {
 		Player1.score++;
 	}
 	
+	
 	//--update leaderboard after a few seconds
 	yield WaitForSeconds(1.5);
 	
@@ -90,16 +104,37 @@ function EndRound() {
 	
 	yield WaitForSeconds(1.5);
 	
-	//--animate out
-	ScoreModal.GetComponent.<Animator>().Play("PanelSlideOut");
+	if((Player1.score >= 5) || (Player2.score >= 5)){
+		//--someone has won
+		
+		Debug.Log("someone has won");
+		
+		
+	}else {
+		//--keep playing
+		
+		//--animate out
+		ScoreModal.GetComponent.<Animator>().Play("PanelSlideOut");
+		
+		Reset();
+		
+		yield WaitForSeconds(1);
+		
+		ScoreModal.SetActive(false);
 	
-	Reset();
-	
-	yield WaitForSeconds(1);
-	
-	ScoreModal.SetActive(false);
+	}
 	
 	
 	
+	
+	
+}
+
+function Update()
+{
+	if(Input.GetKeyDown(KeyCode.Escape) == true)
+	{
+		Application.LoadLevel ("menu");
+	}
 }
 

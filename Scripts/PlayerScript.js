@@ -6,13 +6,19 @@ public var moving : boolean = false;
 public var GameController : GameControllerScript;
 public var alive = true;
 public var score : int = 0;
+public var hasMoved = false; //--use this to determine when to hide instruction
+public var Btn : GameObject; //--the button for this player (used for hiding the instruction)
 
 private var count = 0;
-private var fallingYPos : float = -0.13;
+private var fallingYPos : float = -2;//-0.13;
+
 
 
 function Start () {
 	GameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
+	
+	
+	
 }
 
 
@@ -63,14 +69,10 @@ function FixedUpdate ()
 
 function Update() {
 
-	Debug.Log("checking if alive - y pos = "+transform.position.y);
 	if ((transform.position.y < fallingYPos) && alive == true){
 		
 		alive = false;
-		
-		Debug.Log(this+" is dead. score = "+score);
-		Debug.Log(this+" ypos = "+transform.position.y);
-		
+				
 		if(GameController.roundActive == true){
 
 			GameController.EndRound();
@@ -87,5 +89,14 @@ function Move(localmoving : boolean) {
 		//--switch spin direction
 		rotationSpeed = -rotationSpeed;
 	}
+	
+	if(!hasMoved){
+		hasMoved = true;
+		
+		//--fade the instruction out for this player's control btn
+		Btn.GetComponent.<Animator>().Play("FadeOut");
+		
+	}
+	
 
 }
