@@ -7,6 +7,7 @@ public var Player2 : PlayerScript;
 public var roundActive : boolean = true;
 public var Player1ScoreText : GameObject;
 public var Player2ScoreText : GameObject;
+public var PlayAgainBtn : GameObject;
 
 public var LInstruction : GameObject;
 public var RInstruction : GameObject;
@@ -16,6 +17,8 @@ private var p2StartingPos : Vector3;
 
 private var p1StartingRotation : Quaternion;
 private var p2StartingRotation : Quaternion;
+
+private var winningScore : int = 1;
 
 
 function Start () {
@@ -32,6 +35,8 @@ function Start () {
 	p2StartingRotation = Player2.transform.rotation;
 	
 	
+	//--hide the "play again" button initially, so we can show it later
+	PlayAgainBtn.SetActive(false);
 	
 	//Invoke("HideInstruction", 3);
 }
@@ -104,10 +109,13 @@ function EndRound() {
 	
 	yield WaitForSeconds(1.5);
 	
-	if((Player1.score >= 5) || (Player2.score >= 5)){
+	if((Player1.score >= winningScore) || (Player2.score >= winningScore)){
 		//--someone has won
 		
 		Debug.Log("someone has won");
+		
+		//--show "play again" button
+		PlayAgainBtn.SetActive(true);
 		
 		
 	}else {
@@ -125,8 +133,7 @@ function EndRound() {
 	}
 	
 	
-	
-	
+
 	
 }
 
@@ -136,5 +143,21 @@ function Update()
 	{
 		Application.LoadLevel ("menu");
 	}
+}
+
+function PlayAgain (){
+
+	Debug.Log("play again");
+	
+	Reset();
+	
+	Player1.score = 0;
+	Player2.score = 0;
+	
+	PlayAgainBtn.GetComponent.<Animator>().Play("PanelSlideOut");
+	
+	ScoreModal.GetComponent.<Animator>().Play("PanelSlideOut");
+	
+	
 }
 
