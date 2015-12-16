@@ -12,11 +12,11 @@ public var PlayAgainBtn : GameObject;
 public var LInstruction : GameObject;
 public var RInstruction : GameObject;
 
-private var p1StartingPos : Vector3;
-private var p2StartingPos : Vector3;
-
-private var p1StartingRotation : Quaternion;
-private var p2StartingRotation : Quaternion;
+//private var p1StartingPos : Vector3;
+//private var p2StartingPos : Vector3;
+//
+//private var p1StartingRotation : Quaternion;
+//private var p2StartingRotation : Quaternion;
 
 private var winningScore : int = 5;
 
@@ -26,14 +26,6 @@ function Start () {
 	
 	Player1 = GameObject.Find("Player1").GetComponent.<PlayerScript>();
 	Player2 = GameObject.Find("Player2").GetComponent.<PlayerScript>();
-	
-	//--save start locations to variables
-	p1StartingPos = Player1.transform.position;
-	p2StartingPos = Player2.transform.position;
-	
-	p1StartingRotation = Player1.transform.rotation;
-	p2StartingRotation = Player2.transform.rotation;
-	
 	
 	//--hide the "play again" button initially, so we can show it later
 	PlayAgainBtn.SetActive(false);
@@ -61,14 +53,9 @@ function Reset(){
 	Player2.GetComponent.<Rigidbody>().velocity = Vector3.zero;
 	
 	
-	//--reset rotation
-	Player1.transform.rotation = p1StartingRotation;
-	Player2.transform.rotation = p2StartingRotation;
-	
-
 	//--reset position
-	Player1.transform.position = p1StartingPos;
-	Player2.transform.position = p2StartingPos;
+	Player1.Respot();
+	Player2.Respot();
 	
 
 	//--reset their local variables

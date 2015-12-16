@@ -22,7 +22,7 @@ function Start () {
 	
 	normalMass = Rb.mass;
 	
-	Debug.Log("start scale = "+transform.localScale);
+//	Debug.Log("start scale = "+transform.localScale);
 	
 	InvokeRepeating("Countdown", 0, 1);
 }
@@ -30,7 +30,7 @@ function Start () {
 function Countdown(){
 	if((abilityCountDown > 0) && (abilityActive == true)){
 		abilityCountDown--;
-		Debug.Log("countdown: "+abilityCountDown);
+//		Debug.Log("countdown: "+abilityCountDown);
 		
 		if(abilityCountDown <=0){
 			DisableAbility();
@@ -43,7 +43,7 @@ function Countdown(){
 function ActivateAbility () {
 
 	abilityActive = true;
-	Debug.Log("ability active");
+//	Debug.Log("ability active");
 	
 	//--pause player for a bit - whilst flashing
 	PlayerScript.alive = false;
@@ -83,7 +83,7 @@ function DisableAbility() {
 
 	abilityActive = false;
 
-	Debug.Log("back to normal");
+//	Debug.Log("back to normal");
 
 	//--put player back to normal mass
 	Rb.mass = normalMass;

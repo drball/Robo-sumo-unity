@@ -64,7 +64,7 @@ function OnTriggerEnter(other: Collider)
 		
 		if(collidingPlayer != null)
         {   
-            Debug.Log("get script");
+//            Debug.Log("get script");
             collidingPlayer.ActivateAbility();
         }
 		

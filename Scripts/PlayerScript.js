@@ -8,15 +8,25 @@ public var alive = true;
 public var score : int = 0;
 public var hasMoved = false; //--use this to determine when to hide instruction
 public var Btn : GameObject; //--the button for this player (used for hiding the instruction)
+public var vfxObj : GameObject;
 
 private var count = 0;
-private var fallingYPos : float = -2;//-0.13;
-
-
+private var fallingYPos : float = -2;
+private var badRotationTimer : int;
+private var startingPos : Vector3;
+private var startingRotation : Quaternion;
 
 function Start () {
 	GameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
 	
+	InvokeRepeating("Timer", 1, 1);
+	
+	//--save start locations to variables
+	startingPos = transform.position;
+	
+	startingRotation = transform.rotation;
+	
+	Respot();
 }
 
 
@@ -98,6 +108,50 @@ function Move(localmoving : boolean) {
 
 }
 
-function dance () {
-	Debug.Log("dance");
+function Respot(){
+	//--reset position
+	transform.position = startingPos;
+	
+	//--reset rotation
+	transform.rotation = startingRotation;
+	
+	//--make player blink for a bit
+	var blinkingAmt : int = 0;
+	
+	while(blinkingAmt < 8) {
+        yield WaitForSeconds(0.04);
+    
+		if(vfxObj.active == true){
+        	vfxObj.SetActive(false);
+    	}else {
+    		vfxObj.SetActive(true);
+    	}
+        
+        blinkingAmt++;
+    }
+    
+    vfxObj.SetActive(true);
+	
 }
+
+function Timer(){
+	//--1 second cron
+	//--count how long it's been on it's side.
+	
+	Debug.Log("z = "+transform.eulerAngles.z+"x = "+transform.eulerAngles.x);
+	if( (transform.eulerAngles.x >= 45) || (transform.eulerAngles.x <= -45) )
+	{
+		badRotationTimer++;
+	} else {
+		badRotationTimer = 0;
+	}
+	
+	//--restart if been on it's side for more than 3 seconds
+	if((badRotationTimer > 3) && (alive == true)){
+		Respot();
+	}
+	
+	Debug.Log("rotTimer = "+badRotationTimer);
+	
+}
+
