@@ -4,15 +4,20 @@ For a collectable object which comes back later
 ======================================================= */
 
 private var gameController : GameControllerScript;
+private var pickupsController : PickupsController;
 private var isCollectable : boolean = true;
 
-var vfxObj : GameObject;
+public var theParticle : GameObject;
+public var vfxObj : GameObject;
 //private var collectionSfx : AudioSource;
 
 
 function Start () {
 	//--find gameController so we can call functions
 	gameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
+	
+	pickupsController = GameObject.Find("GameController").GetComponent.<PickupsController>();
+	
 	
 //	collectionSfx = GetComponent.<AudioSource>();
 
@@ -28,8 +33,8 @@ function NewPickup () {
 	
 	var blinkingAmt : int = 0;
 	
-	while(blinkingAmt < 6) {
-        yield WaitForSeconds(0.1);
+	while(blinkingAmt < 8) {
+        yield WaitForSeconds(0.04);
         vfxObj.GetComponent.<Renderer>().enabled = !vfxObj.GetComponent.<Renderer>().enabled;
         blinkingAmt++;
     }
@@ -66,10 +71,13 @@ function OnTriggerEnter(other: Collider)
 		//--hide for now 
 	    vfxObj.SetActive(false);
 	    isCollectable = false;
+	    theParticle.GetComponent.<ParticleSystem>().emissionRate = 0;
 	    
 	    yield WaitForSeconds (3);
 	    
-		NewPickup();
+	    Destroy(gameObject);
+
+		pickupsController.SchedulePickup();
 	    
 	}
 

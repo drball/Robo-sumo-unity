@@ -1,7 +1,7 @@
 ﻿#pragma strict
-public var spinX : float = 0;
-public var spinY : float = 0;
-public var spinZ : float = 0;
+public var spinX : float;
+public var spinY : float;
+public var spinZ : float;
 
 function Start () {
 	GetComponent.<Rigidbody>().AddTorque(spinX,spinY,spinZ);

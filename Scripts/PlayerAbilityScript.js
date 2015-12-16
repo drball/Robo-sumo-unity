@@ -2,13 +2,40 @@
 
 public var abilityActive : boolean = false;
 public var PlayerScript : PlayerScript;
-private var normalScaleFactor : float = 1;
-private var largeScaleFactor : float = 1.15;
+public var vfxObj : GameObject;
+private var abilityCountDownInitial : int = 10;
+public var abilityCountDown : int = abilityCountDownInitial;
+
+private var normalScale : Vector3;
+private var scaleFactor : float = 0.25;
+
+private var Rb: Rigidbody;
+private var normalMass : float;
 
 function Start () {
 	//GameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
 	PlayerScript = GetComponent.<PlayerScript>();
 	
+	Rb = GetComponent.<Rigidbody>();
+	
+	normalScale = transform.localScale;
+	
+	normalMass = Rb.mass;
+	
+	Debug.Log("start scale = "+transform.localScale);
+	
+	InvokeRepeating("Countdown", 0, 1);
+}
+
+function Countdown(){
+	if((abilityCountDown > 0) && (abilityActive == true)){
+		abilityCountDown--;
+		Debug.Log("countdown: "+abilityCountDown);
+		
+		if(abilityCountDown <=0){
+			DisableAbility();
+		}
+	}
 }
 
 
@@ -21,10 +48,67 @@ function ActivateAbility () {
 	//--pause player for a bit - whilst flashing
 	PlayerScript.alive = false;
 	
-	//--flash the player 
 	
 	//--make player bigger 
+	transform.localScale += new Vector3(scaleFactor, scaleFactor, scaleFactor);
 	
-	transform.localScale = new Vector3(largeScaleFactor, largeScaleFactor, largeScaleFactor);
+	//--make player stronger    
+    Rb.mass = normalMass + 300;
+    
+    abilityCountDown = abilityCountDownInitial;
 
+	//--make player blink for a bit
+	var blinkingAmt : int = 0;
+	
+	while(blinkingAmt < 8) {
+        yield WaitForSeconds(0.04);
+//        vfxObj.GetComponent.<Renderer>().enabled = !vfxObj.GetComponent.<Renderer>().enabled;
+        if(vfxObj.active == true){
+        	vfxObj.SetActive(false);
+    	} else {
+    		vfxObj.SetActive(true);
+    	}
+        
+        blinkingAmt++;
+    }
+    
+    vfxObj.SetActive(true);
+    
+    PlayerScript.alive = true;
+ 
+}
+
+
+function DisableAbility() {
+
+	abilityActive = false;
+
+	Debug.Log("back to normal");
+
+	//--put player back to normal mass
+	Rb.mass = normalMass;
+	
+	//--pause player for a bit - whilst flashing
+	//PlayerScript.alive = false;
+	
+	//--make player back to normal size 
+	transform.localScale = normalScale;
+
+	
+	//--make player blink for a bit
+	var blinkingAmt : int = 0;
+	
+	while(blinkingAmt < 8) {
+        yield WaitForSeconds(0.04);
+    
+		if(vfxObj.active == true){
+        	vfxObj.SetActive(false);
+    	}else {
+    		vfxObj.SetActive(true);
+    	}
+        
+        blinkingAmt++;
+    }
+    
+    vfxObj.SetActive(true);
 }

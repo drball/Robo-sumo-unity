@@ -165,13 +165,16 @@ function PlayAgain (){
 	Player1ScoreText.GetComponent.<Text>().text = "0";
 	Player2ScoreText.GetComponent.<Text>().text = "0";
 	
-	//Invoke(tits,1);
-	
-	
 }
-//
-//function tits(){
-//	ScoreModal.SetActive(false);
-//	ScoreModal.SetActive(false);
-//}
+
+//--for debug
+function FixedUpdate () {
+	if(Input.GetKey(KeyCode.LeftArrow) == true) {
+		Player1.Move(true);
+	}
+	
+	if(Input.GetKey(KeyCode.RightArrow) == true) {
+		Player2.Move(true);
+	}
+}
 
