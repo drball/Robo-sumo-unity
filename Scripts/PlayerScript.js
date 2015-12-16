@@ -139,7 +139,7 @@ function Timer(){
 	//--count how long it's been on it's side.
 	
 	Debug.Log("z = "+transform.eulerAngles.z+"x = "+transform.eulerAngles.x);
-	if( (transform.eulerAngles.x >= 45) || (transform.eulerAngles.x <= -45) )
+	if( (transform.eulerAngles.x >= 260) && (transform.eulerAngles.x <= 345) )
 	{
 		badRotationTimer++;
 	} else {
@@ -148,6 +148,7 @@ function Timer(){
 	
 	//--restart if been on it's side for more than 3 seconds
 	if((badRotationTimer > 3) && (alive == true)){
+		badRotationTimer = 0;
 		Respot();
 	}
 	
