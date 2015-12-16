@@ -18,7 +18,7 @@ private var p2StartingPos : Vector3;
 private var p1StartingRotation : Quaternion;
 private var p2StartingRotation : Quaternion;
 
-private var winningScore : int = 1;
+private var winningScore : int = 5;
 
 
 function Start () {
@@ -76,6 +76,12 @@ function Reset(){
 	Player2.alive = true;
 	
 	roundActive = true;
+	
+	yield WaitForSeconds(1);
+	
+	//--make sure these are hidden so we can activate them later
+	ScoreModal.SetActive(false);
+	PlayAgainBtn.SetActive(false);
 
 }
 
@@ -126,9 +132,6 @@ function EndRound() {
 		
 		Reset();
 		
-		yield WaitForSeconds(1);
-		
-		ScoreModal.SetActive(false);
 	
 	}
 	
@@ -154,10 +157,21 @@ function PlayAgain (){
 	Player1.score = 0;
 	Player2.score = 0;
 	
+	//--animate these away
 	PlayAgainBtn.GetComponent.<Animator>().Play("PanelSlideOut");
-	
 	ScoreModal.GetComponent.<Animator>().Play("PanelSlideOut");
+	
+	//--reset the text boxes
+	Player1ScoreText.GetComponent.<Text>().text = "0";
+	Player2ScoreText.GetComponent.<Text>().text = "0";
+	
+	//Invoke(tits,1);
 	
 	
 }
+//
+//function tits(){
+//	ScoreModal.SetActive(false);
+//	ScoreModal.SetActive(false);
+//}
 

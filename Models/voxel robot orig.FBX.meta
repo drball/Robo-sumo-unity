@@ -1,22 +1,22 @@
 fileFormatVersion: 2
-guid: 8eabff79ab67e9f49abf67a83b8a5048
-timeCreated: 1450208131
+guid: e83c0442930aa2f418823ffa73771f4b
+timeCreated: 1450208069
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: Body
+    100000: Coloured bit
     100002: default
     100004: //RootNode
-    400000: Body
+    400000: Coloured bit
     400002: default
     400004: //RootNode
-    2300000: Body
+    2300000: Coloured bit
     2300002: default
-    3300000: Body
+    3300000: Coloured bit
     3300002: default
     4300000: default
-    4300002: Body
+    4300002: Coloured bit
   materials:
     importMaterials: 1
     materialName: 0

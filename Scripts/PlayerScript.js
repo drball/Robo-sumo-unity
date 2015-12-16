@@ -17,8 +17,6 @@ private var fallingYPos : float = -2;//-0.13;
 function Start () {
 	GameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
 	
-	
-	
 }
 
 
@@ -97,6 +95,9 @@ function Move(localmoving : boolean) {
 		Btn.GetComponent.<Animator>().Play("FadeOut");
 		
 	}
-	
 
+}
+
+function dance () {
+	Debug.Log("dance");
 }
