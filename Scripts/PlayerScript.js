@@ -119,9 +119,9 @@ function Respot(){
 	var blinkingAmt : int = 0;
 	
 	while(blinkingAmt < 8) {
-        yield WaitForSeconds(0.04);
+        yield WaitForSeconds(0.06);
     
-		if(vfxObj.active == true){
+		if(vfxObj.activeSelf == true){
         	vfxObj.SetActive(false);
     	}else {
     		vfxObj.SetActive(true);
@@ -139,7 +139,7 @@ function Timer(){
 	//--count how long it's been on it's side.
 	
 	Debug.Log("z = "+transform.eulerAngles.z+"x = "+transform.eulerAngles.x);
-	if( (transform.eulerAngles.x >= 260) && (transform.eulerAngles.x <= 345) )
+	if( (transform.eulerAngles.x >= 250) && (transform.eulerAngles.x <= 300) )
 	{
 		badRotationTimer++;
 	} else {

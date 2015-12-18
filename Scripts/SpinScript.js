@@ -10,3 +10,8 @@ function Start () {
 function Update () {
 
 }
+
+//function FixedUpdate () {
+//	transform.Rotate((Vector3.up * rotationSpeed) * Time.deltaTime);
+//}
+

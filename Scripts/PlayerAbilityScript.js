@@ -61,9 +61,9 @@ function ActivateAbility () {
 	var blinkingAmt : int = 0;
 	
 	while(blinkingAmt < 8) {
-        yield WaitForSeconds(0.04);
+        yield WaitForSeconds(0.05);
 //        vfxObj.GetComponent.<Renderer>().enabled = !vfxObj.GetComponent.<Renderer>().enabled;
-        if(vfxObj.active == true){
+        if(vfxObj.activeSelf == true){
         	vfxObj.SetActive(false);
     	} else {
     		vfxObj.SetActive(true);
@@ -99,9 +99,9 @@ function DisableAbility() {
 	var blinkingAmt : int = 0;
 	
 	while(blinkingAmt < 8) {
-        yield WaitForSeconds(0.04);
+        yield WaitForSeconds(0.05);
     
-		if(vfxObj.active == true){
+		if(vfxObj.activeSelf == true){
         	vfxObj.SetActive(false);
     	}else {
     		vfxObj.SetActive(true);
