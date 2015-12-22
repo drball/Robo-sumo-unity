@@ -5,7 +5,7 @@ Creates a collectable object
 ======================================================= */
 
 private var yPos : float = 0.33;
-private var appearAfter: float = 10; //-- how many seconds pickup should show again
+private var appearAfter: float = 1;//10; //-- how many seconds pickup should show again
 
 
 function Start () {
@@ -19,14 +19,34 @@ function Update () {
 function CreatePickup() {
 	Debug.Log("new pickup");
 	
-	//--select location 
-	
-	var pickupInstance : GameObject = Instantiate(Resources.Load("Pickup", GameObject),
-		Vector3(
+	//--select placement location 
+	var location : Vector3 = Vector3(
 			Random.Range(-5.9, 5.9),
 			yPos, 
 			Random.Range(-5.9, 5.9)
-		), transform.rotation);
+		);
+		
+	var radius : float = .7; //--radius of the hit area
+
+	var objectsInRange : Collider[] = Physics.OverlapSphere(location, radius);
+    
+    //--loop through all objects that collide
+//    for (var col : Collider in objectsInRange)
+//    {
+//    	Debug.Log("colliding with: "+col);
+//    }
+    
+    if(objectsInRange.Length > 0){
+    	//--this would collide with an object, so try again with a different location
+    	CreatePickup();
+    }else {
+
+		//--there's nothing to collide with here, so create pickup
+    	var pickupInstance : GameObject = Instantiate(Resources.Load("Pickup", GameObject),
+			location, 
+			transform.rotation
+		);	
+    }
 }
 
 function SchedulePickup(){

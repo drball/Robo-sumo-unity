@@ -135,7 +135,10 @@ function Update()
 	}
 }
 
+
 function PlayAgain (){
+
+	//--a full reset
 
 	Debug.Log("play again");
 	
@@ -151,6 +154,9 @@ function PlayAgain (){
 	//--reset the text boxes
 	Player1ScoreText.GetComponent.<Text>().text = "0";
 	Player2ScoreText.GetComponent.<Text>().text = "0";
+	
+	//--reload entire scene
+	Application.LoadLevel ("main");
 	
 }
 

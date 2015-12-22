@@ -138,8 +138,8 @@ function Timer(){
 	//--1 second cron
 	//--count how long it's been on it's side.
 	
-	Debug.Log("z = "+transform.eulerAngles.z+"x = "+transform.eulerAngles.x);
-	if( (transform.eulerAngles.x >= 250) && (transform.eulerAngles.x <= 300) )
+	//Debug.Log("z = "+transform.eulerAngles.z+"x = "+transform.eulerAngles.x);
+	if( ((transform.eulerAngles.x >= 250) && (transform.eulerAngles.x <= 300)) || ((transform.eulerAngles.z >= 250) && (transform.eulerAngles.z <= 300)) )
 	{
 		badRotationTimer++;
 	} else {
@@ -152,7 +152,7 @@ function Timer(){
 		Respot();
 	}
 	
-	Debug.Log("rotTimer = "+badRotationTimer);
+	//Debug.Log("rotTimer = "+badRotationTimer);
 	
 }
 
