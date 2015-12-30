@@ -11,35 +11,49 @@ public var PlayAgainBtn : GameObject;
 
 public var LInstruction : GameObject;
 public var RInstruction : GameObject;
-
-//private var p1StartingPos : Vector3;
-//private var p2StartingPos : Vector3;
-//
-//private var p1StartingRotation : Quaternion;
-//private var p2StartingRotation : Quaternion;
-
 private var winningScore : int = 5;
 
 
 function Start () {
+	//--hide the score modal so we can show it later
 	ScoreModal.SetActive(false);
 	
-	Player1 = GameObject.Find("Player1").GetComponent.<PlayerScript>();
-	Player2 = GameObject.Find("Player2").GetComponent.<PlayerScript>();
+	//--load the chosen player dynamically based on what was chosen
+	
+	
+	//Player1 = player1Instance.transform.GetComponent.<PlayerScript>();
+	Player1 = LoadPlayer("Player1Dummy", 1).transform.GetComponent.<PlayerScript>();
+	Player2 = LoadPlayer("Player2Dummy", 2).transform.GetComponent.<PlayerScript>();
+//	Player2 = GameObject.Find("Player2Dummy").GetComponent.<PlayerScript>();
+	
+//	Debug.Log("player 1 xpos = "+Player1.transform.position.x);
+//	Debug.Log("player 2 xpos = "+Player2.transform.position.x);
 	
 	//--hide the "play again" button initially, so we can show it later
 	PlayAgainBtn.SetActive(false);
 	
-	//Invoke("HideInstruction", 3);
+	Debug.Log("h = "+ PlayerSelectScript.playerSelection["1"]);
+
 }
 
+function LoadPlayer(dummyObjName, playerNum){
 
-//function HideInstruction(){
-//	Debug.Log("hide instuction");
-//	
-//	LInstruction.GetComponent.<Animator>().Play("FadeOut");
-//	
-//}
+	//--load the chosen player dynamically based on what was chosen
+	var PlayerDummy : GameObject = GameObject.Find(dummyObjName);
+	
+	//--load from "resources"
+	var playerToLoad = "Player" + playerNum + PlayerSelectScript.playerSelection[playerNum];
+	
+	var playerInstance : GameObject = Instantiate(Resources.Load(playerToLoad, GameObject),
+		PlayerDummy.transform.position, 
+		PlayerDummy.transform.rotation
+	);
+	
+	Destroy(PlayerDummy);
+
+	return playerInstance;
+}
+
 
 function Reset(){
 
@@ -119,21 +133,17 @@ function EndRound() {
 		
 		Reset();
 		
-	
 	}
-	
-	
-
 	
 }
 
-function Update()
-{
-	if(Input.GetKeyDown(KeyCode.Escape) == true)
-	{
-		Application.LoadLevel ("menu");
-	}
-}
+//function Update()
+//{
+//	if(Input.GetKeyDown(KeyCode.Escape) == true)
+//	{
+//		Application.LoadLevel ("menu");
+//	}
+//}
 
 
 function PlayAgain (){
@@ -159,6 +169,20 @@ function PlayAgain (){
 	Application.LoadLevel ("main");
 	
 }
+
+function MovePlayer1(moving : boolean){
+
+	//--called when the button is pressed or stopped pressing - pass this to player
+	Player1.Move(moving);
+}
+
+function MovePlayer2(moving : boolean){
+
+	//--called when the button is pressed or stopped pressing - pass this to player
+	Player2.Move(moving);
+	
+}
+
 
 //--for debug
 function FixedUpdate () {

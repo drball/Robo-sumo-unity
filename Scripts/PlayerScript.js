@@ -7,14 +7,15 @@ public var GameController : GameControllerScript;
 public var alive = true;
 public var score : int = 0;
 public var hasMoved = false; //--use this to determine when to hide instruction
-public var Btn : GameObject; //--the button for this player (used for hiding the instruction)
 public var vfxObj : GameObject;
+public var playerNum : int = 1;
 
 private var count = 0;
 private var fallingYPos : float = -2;
 private var badRotationTimer : int;
 private var startingPos : Vector3;
 private var startingRotation : Quaternion;
+private var Btn : GameObject; //--the button for this player (used for hiding the instruction)
 
 function Start () {
 	GameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
@@ -27,6 +28,14 @@ function Start () {
 	startingRotation = transform.rotation;
 	
 	Respot();
+	
+	Debug.Log("ypos"+transform.position.y);
+	
+	if(playerNum == 1){
+		Btn = GameObject.Find("LInstruction");
+	} else {
+		Btn = GameObject.Find("RInstruction");
+	}
 }
 
 
@@ -103,7 +112,6 @@ function Move(localmoving : boolean) {
 		
 		//--fade the instruction out for this player's control btn
 		Btn.GetComponent.<Animator>().Play("FadeOut");
-		
 	}
 
 }

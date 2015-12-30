@@ -2,19 +2,20 @@
 
 public var abilityActive : boolean = false;
 public var PlayerScript : PlayerScript;
-public var vfxObj : GameObject;
-private var abilityCountDownInitial : int = 10;
 public var abilityCountDown : int = abilityCountDownInitial;
 
 private var normalScale : Vector3;
 private var scaleFactor : float = 0.25;
-
 private var Rb: Rigidbody;
 private var normalMass : float;
+private var vfxObj : GameObject;
+private var abilityCountDownInitial : int = 10;
 
 function Start () {
 	//GameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
 	PlayerScript = GetComponent.<PlayerScript>();
+	
+	vfxObj = PlayerScript.vfxObj;
 	
 	Rb = GetComponent.<Rigidbody>();
 	
