@@ -32,7 +32,8 @@ function Start () {
 	//--hide the "play again" button initially, so we can show it later
 	PlayAgainBtn.SetActive(false);
 	
-	Debug.Log("h = "+ PlayerSelectScript.playerSelection["1"]);
+//	Debug.Log("p1 = "+ PlayerSelectScript.p1SelectedCharString);
+//	Debug.Log("p2 = "+ PlayerSelectScript.p2SelectedCharString);
 
 }
 
@@ -41,9 +42,20 @@ function LoadPlayer(dummyObjName, playerNum){
 	//--load the chosen player dynamically based on what was chosen
 	var PlayerDummy : GameObject = GameObject.Find(dummyObjName);
 	
-	//--load from "resources"
-	var playerToLoad = "Player" + playerNum + PlayerSelectScript.playerSelection[playerNum];
+	//--we should get the chosen player from playerSelection screen, if not load a default
+	if(PlayerSelectScript.p1SelectedCharString && PlayerSelectScript.p2SelectedCharString){
+		//--build the string of the player to replace the dummy with
+		var playerToLoad = "Player" + playerNum;
+		if(playerNum == 1){
+			playerToLoad += PlayerSelectScript.p1SelectedCharString;
+		}else {
+			playerToLoad += PlayerSelectScript.p2SelectedCharString;
+		}
+	}else{
+		playerToLoad = "Player" + playerNum + "B";
+	}
 	
+	//--load from "resources"
 	var playerInstance : GameObject = Instantiate(Resources.Load(playerToLoad, GameObject),
 		PlayerDummy.transform.position, 
 		PlayerDummy.transform.rotation

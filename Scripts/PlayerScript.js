@@ -16,6 +16,7 @@ private var badRotationTimer : int;
 private var startingPos : Vector3;
 private var startingRotation : Quaternion;
 private var Btn : GameObject; //--the button for this player (used for hiding the instruction)
+private var playerCharacter : String;
 
 function Start () {
 	GameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
@@ -29,12 +30,14 @@ function Start () {
 	
 	Respot();
 	
-	Debug.Log("ypos"+transform.position.y);
+//	Debug.Log("ypos"+transform.position.y);
 	
 	if(playerNum == 1){
 		Btn = GameObject.Find("LInstruction");
+		playerCharacter = PlayerSelectScript.p1SelectedCharString;
 	} else {
 		Btn = GameObject.Find("RInstruction");
+		playerCharacter = PlayerSelectScript.p2SelectedCharString;
 	}
 }
 

@@ -17,7 +17,7 @@ function Update () {
 }
 
 function CreatePickup() {
-	Debug.Log("new pickup");
+//	Debug.Log("new pickup");
 	
 	//--select placement location 
 	var location : Vector3 = Vector3(
@@ -29,13 +29,7 @@ function CreatePickup() {
 	var radius : float = .7; //--radius of the hit area
 
 	var objectsInRange : Collider[] = Physics.OverlapSphere(location, radius);
-    
-    //--loop through all objects that collide
-//    for (var col : Collider in objectsInRange)
-//    {
-//    	Debug.Log("colliding with: "+col);
-//    }
-    
+        
     if(objectsInRange.Length > 0){
     	//--this would collide with an object, so try again with a different location
     	CreatePickup();

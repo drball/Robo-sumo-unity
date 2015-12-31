@@ -45,30 +45,20 @@ function NewPickup () {
 
 function OnTriggerEnter(other: Collider) 
 {
-
+	//--when player touches pickup
 	if (other.tag == "Player" && isCollectable)
 	{
 		Debug.Log("pickyup touching player");
 //	    collectionSfx.Play();
 	        
-//	    var sparkInstance : GameObject = Instantiate(Resources.Load("CollectionSparks", GameObject),
-//			Vector3(gameObject.transform.position.x,gameObject.transform.position.y,gameObject.transform.position.z), 
-//			transform.rotation);
-//			
-//		Destroy(sparkInstance,1);
-
 		var collidingPlayer : PlayerAbilityScript = other.gameObject.GetComponent.<PlayerAbilityScript>();
-		
-		Debug.Log(other);
-		Debug.Log(other.gameObject);
-		
+				
 		if(collidingPlayer != null)
         {   
-//            Debug.Log("get script");
             collidingPlayer.ActivateAbility();
         }
 		
-		//--hide for now 
+		//--destory pickup, but schedule a new one
 	    vfxObj.SetActive(false);
 	    isCollectable = false;
 	    theParticle.GetComponent.<ParticleSystem>().emissionRate = 0;

@@ -1,7 +1,7 @@
 ﻿#pragma strict
 
 function StartGame() {
-	Application.LoadLevel ("main");
+	Application.LoadLevel ("playerSelect");
 }
 
 function FacebookBtnPressed() {
@@ -15,12 +15,4 @@ function RateBtnPressed() {
 function TwitterBtnPressed() {
 	Application.OpenURL("https://www.twitter.com/davidonionball");
 	
-}
-
-function Update()
-{
-	if(Input.GetKeyDown(KeyCode.Escape) == true)
-	{
-		Application.Quit();
-	}
 }
