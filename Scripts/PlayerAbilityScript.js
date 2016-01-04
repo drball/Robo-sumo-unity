@@ -10,6 +10,9 @@ private var Rb: Rigidbody;
 private var normalMass : float;
 private var vfxObj : GameObject;
 private var abilityCountDownInitial : int = 10;
+private var BulletEmitter1 : GameObject;
+private var BulletEmitter2 : GameObject;
+private var fireFromL : boolean; //--alternates whether fire from L or R
 
 function Start () {
 	//GameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
@@ -22,10 +25,20 @@ function Start () {
 	normalScale = transform.localScale;
 	
 	normalMass = Rb.mass;
-	
-//	Debug.Log("start scale = "+transform.localScale);
-	
+		
 	InvokeRepeating("Countdown", 0, 1);
+		
+	if(PlayerScript.playerCharacter == "B")
+	{
+//		BulletEmitter = GameObject.Find("BulletEmitter");	
+		BulletEmitter1 = transform.Find("BulletEmitter1").gameObject;
+		BulletEmitter2 = transform.Find("BulletEmitter2").gameObject;
+
+		Debug.Log("emitter x pos = "+BulletEmitter1.transform.position.x);
+		
+		InvokeRepeating("FireBullet", 0, 0.75);
+	}
+	
 }
 
 function Countdown(){
@@ -49,12 +62,18 @@ function ActivateAbility () {
 	//--pause player for a bit - whilst flashing
 	PlayerScript.alive = false;
 	
-	
-	//--make player bigger 
-	transform.localScale += new Vector3(scaleFactor, scaleFactor, scaleFactor);
-	
-	//--make player stronger    
-    Rb.mass = normalMass + 300;
+	//--each character has different abilities
+	if(PlayerScript.playerCharacter == "A")
+	{
+		//--make player bigger 
+		transform.localScale += new Vector3(scaleFactor, scaleFactor, scaleFactor);
+		
+		//--make player stronger    
+	    Rb.mass = normalMass + 300;
+	}else if(PlayerScript.playerCharacter == "B") 
+	{
+		InvokeRepeating("FireBullet", 0, 1);
+	}
     
     abilityCountDown = abilityCountDownInitial;
 
@@ -63,7 +82,7 @@ function ActivateAbility () {
 	
 	while(blinkingAmt < 8) {
         yield WaitForSeconds(0.05);
-//        vfxObj.GetComponent.<Renderer>().enabled = !vfxObj.GetComponent.<Renderer>().enabled;
+
         if(vfxObj.activeSelf == true){
         	vfxObj.SetActive(false);
     	} else {
@@ -84,16 +103,21 @@ function DisableAbility() {
 
 	abilityActive = false;
 
-//	Debug.Log("back to normal");
+	Debug.Log("back to normal");
 
-	//--put player back to normal mass
-	Rb.mass = normalMass;
+	if(PlayerScript.playerCharacter == "A")
+	{
+		//--put player back to normal mass
+		Rb.mass = normalMass;
+			
+		//--make player back to normal size 
+		transform.localScale = normalScale;
+		
+	}else if(PlayerScript.playerCharacter == "B") 
+	{
+		
+	}
 	
-	//--pause player for a bit - whilst flashing
-	//PlayerScript.alive = false;
-	
-	//--make player back to normal size 
-	transform.localScale = normalScale;
 
 	
 	//--make player blink for a bit
@@ -112,4 +136,25 @@ function DisableAbility() {
     }
     
     vfxObj.SetActive(true);
+}
+
+function FireBullet() {
+
+	fireFromL = !fireFromL;
+	
+	if( fireFromL == true ){
+		var bullet1Instance : GameObject = Instantiate(Resources.Load("Bullet", GameObject),
+			BulletEmitter1.transform.position, 
+			transform.rotation
+		);
+	}else {
+		var bullet2Instance : GameObject = Instantiate(Resources.Load("Bullet", GameObject),
+			BulletEmitter2.transform.position, 
+			transform.rotation
+		);
+	}
+
+
+	
+
 }

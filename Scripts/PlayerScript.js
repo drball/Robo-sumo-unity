@@ -9,6 +9,7 @@ public var score : int = 0;
 public var hasMoved = false; //--use this to determine when to hide instruction
 public var vfxObj : GameObject;
 public var playerNum : int = 1;
+public var playerCharacter : String;
 
 private var count = 0;
 private var fallingYPos : float = -2;
@@ -16,7 +17,7 @@ private var badRotationTimer : int;
 private var startingPos : Vector3;
 private var startingRotation : Quaternion;
 private var Btn : GameObject; //--the button for this player (used for hiding the instruction)
-private var playerCharacter : String;
+
 
 function Start () {
 	GameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
@@ -34,11 +35,15 @@ function Start () {
 	
 	if(playerNum == 1){
 		Btn = GameObject.Find("LInstruction");
-		playerCharacter = PlayerSelectScript.p1SelectedCharString;
+		
+
+		
 	} else {
 		Btn = GameObject.Find("RInstruction");
-		playerCharacter = PlayerSelectScript.p2SelectedCharString;
+		
 	}
+	
+	
 }
 
 
@@ -82,7 +87,7 @@ function FixedUpdate ()
 //		}
 
 		//-- rotate the player
-		transform.Rotate((Vector3.up * rotationSpeed) * Time.deltaTime);
+//		transform.Rotate((Vector3.up * rotationSpeed) * Time.deltaTime);
 	}
 
 }

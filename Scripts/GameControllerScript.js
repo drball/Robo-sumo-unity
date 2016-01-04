@@ -11,7 +11,9 @@ public var PlayAgainBtn : GameObject;
 
 public var LInstruction : GameObject;
 public var RInstruction : GameObject;
+
 private var winningScore : int = 5;
+private var defaultPlayer : String = "B";
 
 
 function Start () {
@@ -26,14 +28,21 @@ function Start () {
 	Player2 = LoadPlayer("Player2Dummy", 2).transform.GetComponent.<PlayerScript>();
 //	Player2 = GameObject.Find("Player2Dummy").GetComponent.<PlayerScript>();
 	
-//	Debug.Log("player 1 xpos = "+Player1.transform.position.x);
-//	Debug.Log("player 2 xpos = "+Player2.transform.position.x);
-	
 	//--hide the "play again" button initially, so we can show it later
 	PlayAgainBtn.SetActive(false);
 	
-//	Debug.Log("p1 = "+ PlayerSelectScript.p1SelectedCharString);
-//	Debug.Log("p2 = "+ PlayerSelectScript.p2SelectedCharString);
+	//--set the players to know what they are 
+	if(PlayerSelectScript.p1SelectedCharString){
+		Player1.playerCharacter = PlayerSelectScript.p1SelectedCharString;
+	}else {
+		Player1.playerCharacter = defaultPlayer;
+	}
+	
+	if(PlayerSelectScript.p2SelectedCharString){
+		Player2.playerCharacter = PlayerSelectScript.p2SelectedCharString;
+	}else {
+		Player2.playerCharacter = defaultPlayer;
+	}
 
 }
 
@@ -43,7 +52,8 @@ function LoadPlayer(dummyObjName, playerNum){
 	var PlayerDummy : GameObject = GameObject.Find(dummyObjName);
 	
 	//--we should get the chosen player from playerSelection screen, if not load a default
-	if(PlayerSelectScript.p1SelectedCharString && PlayerSelectScript.p2SelectedCharString){
+	if(PlayerSelectScript.p1SelectedCharString && PlayerSelectScript.p2SelectedCharString)
+	{
 		//--build the string of the player to replace the dummy with
 		var playerToLoad = "Player" + playerNum;
 		if(playerNum == 1){
@@ -52,7 +62,7 @@ function LoadPlayer(dummyObjName, playerNum){
 			playerToLoad += PlayerSelectScript.p2SelectedCharString;
 		}
 	}else{
-		playerToLoad = "Player" + playerNum + "B";
+		playerToLoad = "Player" + playerNum + defaultPlayer;
 	}
 	
 	//--load from "resources"
@@ -62,7 +72,7 @@ function LoadPlayer(dummyObjName, playerNum){
 	);
 	
 	Destroy(PlayerDummy);
-
+	
 	return playerInstance;
 }
 
