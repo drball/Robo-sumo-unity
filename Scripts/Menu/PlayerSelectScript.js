@@ -12,7 +12,7 @@ public var P2Btn : GameObject;	//--ref to btn for disabling it
 
 private var numPlayers : int = 2;
 private var p1VisibleChar = 0;
-private var p2VisibleChar = 1;
+private var p2VisibleChar = 0;
 
 //--the selected character - these used in the next scene
 static var p1SelectedCharString; 
@@ -51,6 +51,8 @@ function selectCharacter(playerNum : int) {
 
 function showOnlyP1Character (charToShow : int) {
 
+	Debug.Log("there are "+p1GameObjects.length+"p1 charaters");
+
 	//--hide all characters
 	for(var i : int = 0; i < p1GameObjects.length; i++){
 		p1GameObjects[i].SetActive(false);
@@ -58,9 +60,12 @@ function showOnlyP1Character (charToShow : int) {
 	
 	//--show the selected char
 	p1GameObjects[charToShow].SetActive(true);
+	Debug.Log("p1 show "+charToShow);
 }
 
 function showOnlyP2Character (charToShow : int) {
+
+	Debug.Log("there are "+p2GameObjects.length+"p2 charaters");
 
 	//--hide all characters
 	for(var i : int = 0; i < p2GameObjects.length; i++){
@@ -69,6 +74,7 @@ function showOnlyP2Character (charToShow : int) {
 	
 	//--show the selected char
 	p2GameObjects[charToShow].SetActive(true);
+	Debug.Log("p2 show "+charToShow);
 }
 
 function NextCharacter (playerNum : int) {

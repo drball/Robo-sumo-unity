@@ -63,7 +63,12 @@ function LoadPlayer(dummyObjName, playerNum){
 		}
 	}else{
 		playerToLoad = "Player" + playerNum + defaultPlayer;
+		
+		if(playerNum == 1){
+			playerToLoad = "Player1C";
+		}
 	}
+	
 	
 	//--load from "resources"
 	var playerInstance : GameObject = Instantiate(Resources.Load(playerToLoad, GameObject),

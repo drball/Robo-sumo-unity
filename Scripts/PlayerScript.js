@@ -87,7 +87,7 @@ function FixedUpdate ()
 //		}
 
 		//-- rotate the player
-//		transform.Rotate((Vector3.up * rotationSpeed) * Time.deltaTime);
+		transform.Rotate((Vector3.up * rotationSpeed) * Time.deltaTime);
 	}
 
 }

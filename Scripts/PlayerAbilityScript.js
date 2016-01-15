@@ -8,6 +8,7 @@ private var normalScale : Vector3;
 private var scaleFactor : float = 0.25;
 private var Rb: Rigidbody;
 private var normalMass : float;
+//private var normalSpeed : float;
 private var vfxObj : GameObject;
 private var abilityCountDownInitial : int = 10;
 private var BulletEmitter1 : GameObject;
@@ -23,8 +24,8 @@ function Start () {
 	Rb = GetComponent.<Rigidbody>();
 	
 	normalScale = transform.localScale;
-	
 	normalMass = Rb.mass;
+//	normalSpeed = Rb.speed;
 		
 	InvokeRepeating("Countdown", 0, 1);
 		
@@ -36,7 +37,7 @@ function Start () {
 
 		Debug.Log("emitter x pos = "+BulletEmitter1.transform.position.x);
 		
-		InvokeRepeating("FireBullet", 0, 0.75);
+		//InvokeRepeating("FireBullet", 0, 0.75);
 	}
 	
 }
@@ -63,17 +64,21 @@ function ActivateAbility () {
 	PlayerScript.alive = false;
 	
 	//--each character has different abilities
-	if(PlayerScript.playerCharacter == "A")
-	{
+//	if(PlayerScript.playerCharacter == "A")
+//	{
 		//--make player bigger 
 		transform.localScale += new Vector3(scaleFactor, scaleFactor, scaleFactor);
 		
 		//--make player stronger    
 	    Rb.mass = normalMass + 300;
-	}else if(PlayerScript.playerCharacter == "B") 
-	{
-		InvokeRepeating("FireBullet", 0, 1);
-	}
+//	}else if(PlayerScript.playerCharacter == "B") 
+//	{
+//		InvokeRepeating("FireBullet", 0, 1);
+//	}else if(PlayerScript.playerCharacter == "C") 
+//	{
+//		//--increase speed
+//		Rb.speed = normalSpeed + 300;
+//	}
     
     abilityCountDown = abilityCountDownInitial;
 
@@ -105,18 +110,21 @@ function DisableAbility() {
 
 	Debug.Log("back to normal");
 
-	if(PlayerScript.playerCharacter == "A")
-	{
+//	if(PlayerScript.playerCharacter == "A")
+//	{
 		//--put player back to normal mass
 		Rb.mass = normalMass;
 			
 		//--make player back to normal size 
 		transform.localScale = normalScale;
 		
-	}else if(PlayerScript.playerCharacter == "B") 
-	{
-		
-	}
+//	}else if(PlayerScript.playerCharacter == "B") 
+//	{
+//		
+//	}else if(PlayerScript.playerCharacter == "C") 
+//	{
+//		Rb.speed = normalSpeed;
+//	}
 	
 
 	

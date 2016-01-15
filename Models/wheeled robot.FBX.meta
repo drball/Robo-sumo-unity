@@ -8,15 +8,20 @@ ModelImporter:
     100000: Coloured
     100002: default
     100004: //RootNode
+    100006: coloured
     400000: Coloured
     400002: default
     400004: //RootNode
+    400006: coloured
     2300000: Coloured
     2300002: default
+    2300004: coloured
     3300000: Coloured
     3300002: default
+    3300004: coloured
     4300000: default
     4300002: Coloured
+    4300004: coloured
   materials:
     importMaterials: 1
     materialName: 0
