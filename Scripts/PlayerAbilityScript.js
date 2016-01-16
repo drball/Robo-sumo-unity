@@ -11,9 +11,12 @@ private var normalMass : float;
 //private var normalSpeed : float;
 private var vfxObj : GameObject;
 private var abilityCountDownInitial : int = 10;
+
+//--vars for Bot B
 private var BulletEmitter1 : GameObject;
 private var BulletEmitter2 : GameObject;
 private var fireFromL : boolean; //--alternates whether fire from L or R
+private var fireRate : float = 0.75;
 
 function Start () {
 	//GameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
@@ -30,14 +33,14 @@ function Start () {
 	InvokeRepeating("Countdown", 0, 1);
 		
 	if(PlayerScript.playerCharacter == "B")
-	{
-//		BulletEmitter = GameObject.Find("BulletEmitter");	
+	{	
 		BulletEmitter1 = transform.Find("BulletEmitter1").gameObject;
 		BulletEmitter2 = transform.Find("BulletEmitter2").gameObject;
 
-		Debug.Log("emitter x pos = "+BulletEmitter1.transform.position.x);
+//		Debug.Log("emitter x pos = "+BulletEmitter1.transform.position.x);
 		
-		//InvokeRepeating("FireBullet", 0, 0.75);
+		InvokeRepeating("FireBullet", 0, fireRate);
+
 	}
 	
 }
@@ -64,16 +67,19 @@ function ActivateAbility () {
 	PlayerScript.alive = false;
 	
 	//--each character has different abilities
-//	if(PlayerScript.playerCharacter == "A")
-//	{
-		//--make player bigger 
+	if(PlayerScript.playerCharacter == "B")
+	{
+		InvokeRepeating("FireBullet", 0, fireRate);
+	}else {
+		//--default ability - make player bigger 
 		transform.localScale += new Vector3(scaleFactor, scaleFactor, scaleFactor);
 		
 		//--make player stronger    
 	    Rb.mass = normalMass + 300;
+    }
 //	}else if(PlayerScript.playerCharacter == "B") 
 //	{
-//		InvokeRepeating("FireBullet", 0, 1);
+//		
 //	}else if(PlayerScript.playerCharacter == "C") 
 //	{
 //		//--increase speed
@@ -110,13 +116,16 @@ function DisableAbility() {
 
 	Debug.Log("back to normal");
 
-//	if(PlayerScript.playerCharacter == "A")
-//	{
+	if(PlayerScript.playerCharacter == "B")
+	{
+		CancelInvoke("FireBullet");
+	}else {
 		//--put player back to normal mass
 		Rb.mass = normalMass;
 			
 		//--make player back to normal size 
 		transform.localScale = normalScale;
+	}
 		
 //	}else if(PlayerScript.playerCharacter == "B") 
 //	{
@@ -150,19 +159,28 @@ function FireBullet() {
 
 	fireFromL = !fireFromL;
 	
-	if( fireFromL == true ){
-		var bullet1Instance : GameObject = Instantiate(Resources.Load("Bullet", GameObject),
-			BulletEmitter1.transform.position, 
-			transform.rotation
-		);
-	}else {
-		var bullet2Instance : GameObject = Instantiate(Resources.Load("Bullet", GameObject),
-			BulletEmitter2.transform.position, 
-			transform.rotation
-		);
-	}
-
-
+	var Emitter : Vector3;
 	
+	if( fireFromL == true ){
+//		var bulletInstance : GameObject = Instantiate(Resources.Load("Bullet", GameObject),
+//			BulletEmitter1.transform.position, 
+//			transform.rotation
+//		);
+		Emitter = BulletEmitter1.transform.position;
+	}else {
+//		var bulletInstance : GameObject = Instantiate(Resources.Load("Bullet", GameObject),
+//			BulletEmitter2.transform.position, 
+//			transform.rotation
+//		);
+		Emitter = BulletEmitter2.transform.position;
+	}
+	
+	var bulletInstance : GameObject = Instantiate(Resources.Load("Bullet", GameObject),
+			Emitter, 
+			transform.rotation
+		);
+	
+	//--set the owner of this bullet
+	bulletInstance.GetComponent.<BulletScript>().Owner = gameObject;
 
 }

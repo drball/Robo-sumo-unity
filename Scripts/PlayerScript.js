@@ -35,9 +35,6 @@ function Start () {
 	
 	if(playerNum == 1){
 		Btn = GameObject.Find("LInstruction");
-		
-
-		
 	} else {
 		Btn = GameObject.Find("RInstruction");
 		

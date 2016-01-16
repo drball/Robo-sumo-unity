@@ -3,12 +3,13 @@
 //static var playerSelection : Hashtable; //--chosen characters
 
 //--create array of the possible different player characters 
-public var playerCharacters = new Array ("A", "B");
+public var playerCharacters = new Array ("A", "B", "C");
 
 public var p1GameObjects : GameObject[]; //--array of characters
 public var p2GameObjects : GameObject[]; //--array of characters
 public var P1Btn : GameObject;	//--ref to btn for disabling it
 public var P2Btn : GameObject;	//--ref to btn for disabling it
+public var LoadingPanel : GameObject;
 
 private var numPlayers : int = 2;
 private var p1VisibleChar = 0;
@@ -24,12 +25,19 @@ function Start () {
 	showOnlyP1Character(p1VisibleChar);
 	showOnlyP2Character(p2VisibleChar);
 	
+	p1SelectedCharString = "";
+	p2SelectedCharString = "";
+	
+	LoadingPanel.SetActive(false);
+	
 }
 
 function selectCharacter(playerNum : int) {
 	//--when the "select" button pressed, set the variable & disable the btn
 	
 	if(playerNum == 1) {
+		Debug.Log("p1VisibleChar] = "+p1VisibleChar);
+		Debug.Log("playerCharacters[p1VisibleChar] = "+playerCharacters[p1VisibleChar]);
 		p1SelectedCharString = playerCharacters[p1VisibleChar];
 		P1Btn.SetActive(false);
 	}else {
@@ -42,6 +50,9 @@ function selectCharacter(playerNum : int) {
 	if( p1SelectedCharString && p2SelectedCharString ){
 		Debug.Log("both ready!");
 		
+		//--show loading panel because there's a delay
+		LoadingPanel.SetActive(true);
+		
 		//--load the main level
 		Application.LoadLevel ("main");
 	}
@@ -51,7 +62,7 @@ function selectCharacter(playerNum : int) {
 
 function showOnlyP1Character (charToShow : int) {
 
-	Debug.Log("there are "+p1GameObjects.length+"p1 charaters");
+//	Debug.Log("there are "+p1GameObjects.length+"p1 charaters");
 
 	//--hide all characters
 	for(var i : int = 0; i < p1GameObjects.length; i++){
@@ -60,12 +71,11 @@ function showOnlyP1Character (charToShow : int) {
 	
 	//--show the selected char
 	p1GameObjects[charToShow].SetActive(true);
-	Debug.Log("p1 show "+charToShow);
 }
 
 function showOnlyP2Character (charToShow : int) {
 
-	Debug.Log("there are "+p2GameObjects.length+"p2 charaters");
+//	Debug.Log("there are "+p2GameObjects.length+"p2 charaters");
 
 	//--hide all characters
 	for(var i : int = 0; i < p2GameObjects.length; i++){
@@ -74,7 +84,7 @@ function showOnlyP2Character (charToShow : int) {
 	
 	//--show the selected char
 	p2GameObjects[charToShow].SetActive(true);
-	Debug.Log("p2 show "+charToShow);
+//	Debug.Log("p2 show "+charToShow);
 }
 
 function NextCharacter (playerNum : int) {

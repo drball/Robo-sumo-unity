@@ -1,6 +1,11 @@
 ﻿#pragma strict
 
+public var LoadingPanel : GameObject;
+
 function StartGame() {
+	//--show loading panel because there's a delay
+	LoadingPanel.SetActive(true);
+	
 	Application.LoadLevel ("playerSelect");
 }
 
