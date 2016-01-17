@@ -22,6 +22,8 @@ ModelImporter:
     4300000: default
     4300002: Coloured
     4300004: coloured
+    6400000: coloured
+    6400002: default
   materials:
     importMaterials: 1
     materialName: 0

@@ -16,7 +16,8 @@ private var abilityCountDownInitial : int = 10;
 private var BulletEmitter1 : GameObject;
 private var BulletEmitter2 : GameObject;
 private var fireFromL : boolean; //--alternates whether fire from L or R
-private var fireRate : float = 0.75;
+private var fireRateNormal : float = 0.75;
+private var fireRate : float = fireRateNormal;
 
 function Start () {
 	//GameController = GameObject.Find("GameController").GetComponent.<GameControllerScript>();
@@ -37,9 +38,7 @@ function Start () {
 		BulletEmitter1 = transform.Find("BulletEmitter1").gameObject;
 		BulletEmitter2 = transform.Find("BulletEmitter2").gameObject;
 
-//		Debug.Log("emitter x pos = "+BulletEmitter1.transform.position.x);
-		
-		InvokeRepeating("FireBullet", 0, fireRate);
+//		InvokeRepeating("FireBullet", 0, fireRate);
 
 	}
 	
@@ -70,6 +69,7 @@ function ActivateAbility () {
 	if(PlayerScript.playerCharacter == "B")
 	{
 		InvokeRepeating("FireBullet", 0, fireRate);
+
 	}else {
 		//--default ability - make player bigger 
 		transform.localScale += new Vector3(scaleFactor, scaleFactor, scaleFactor);

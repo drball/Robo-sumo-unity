@@ -13,7 +13,7 @@ public var LInstruction : GameObject;
 public var RInstruction : GameObject;
 
 private var winningScore : int = 5;
-private var defaultPlayer : String = "B";
+private var defaultPlayer : String = "A";
 
 
 function Start () {
@@ -43,7 +43,7 @@ function Start () {
 	}else {
 		Player2.playerCharacter = defaultPlayer;
 	}
-
+	
 }
 
 function LoadPlayer(dummyObjName, playerNum){
@@ -64,8 +64,9 @@ function LoadPlayer(dummyObjName, playerNum){
 	}else{
 		playerToLoad = "Player" + playerNum + defaultPlayer;
 		
+		//--for debug - if we load this scene without the player selection
 		if(playerNum == 1){
-			playerToLoad = "Player1C";
+			playerToLoad = "Player1B";
 		}
 	}
 	
